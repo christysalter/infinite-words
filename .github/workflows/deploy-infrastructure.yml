@@ -1,0 +1,36 @@
+name: deploy-infrastructure
+
+on:
+  workflow_call:
+    inputs:
+      resourceGroupName:
+        required: true
+        type: string
+      functionAppName:
+        required: true
+        type: string
+      customDomain:
+        required: true
+        type: string
+    secrets:
+      azure-credentials:
+        required: true
+      salt:
+        required: true
+
+jobs:
+  deploy-infrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.azure-credentials }}
+
+      - name: deploy template
+        run: |
+          az group create --location uksouth --name ${{inputs.resourceGroupName}}
+          az deployment group create --resource-group ${{inputs.resourceGroupName}} --template-file $GITHUB_WORKSPACE/infrastructure/template.bicep --parameters appName=${{inputs.functionAppName}} salt=${{ secrets.SALT }}

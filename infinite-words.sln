@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "infinite-words.api", "src\api\infinite-words.api.csproj", "{A3805183-E4AC-4041-A705-5B658DD10382}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7B0E8C03-15BB-433F-A8C8-0858BDFE99EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{5FBB469B-6046-42D3-A317-DD451F30503B}"
+	ProjectSection(SolutionItems) = preProject
+		infrastructure\template.bicep = infrastructure\template.bicep
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflow", "workflow", "{F58B258F-14A1-42A8-9DA9-1657A6E371CD}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy-function-app.yml = .github\workflows\deploy-function-app.yml
+		.github\workflows\deploy-infrastructure.yml = .github\workflows\deploy-infrastructure.yml
+		.github\workflows\full-redeploy.yml = .github\workflows\full-redeploy.yml
+		.github\workflows\test-and-deploy.yml = .github\workflows\test-and-deploy.yml
+		.github\workflows\test-code.yml = .github\workflows\test-code.yml
+		.github\workflows\deploy-function-app-configure-ssl.yml = .github\workflows\deploy-function-app-configure-ssl.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infinite-words.api.test", "src\test\infinite-words.test.csproj", "{27593FCD-53B8-4835-AE37-0B31E419454B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3805183-E4AC-4041-A705-5B658DD10382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3805183-E4AC-4041-A705-5B658DD10382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3805183-E4AC-4041-A705-5B658DD10382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3805183-E4AC-4041-A705-5B658DD10382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27593FCD-53B8-4835-AE37-0B31E419454B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27593FCD-53B8-4835-AE37-0B31E419454B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27593FCD-53B8-4835-AE37-0B31E419454B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27593FCD-53B8-4835-AE37-0B31E419454B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A3805183-E4AC-4041-A705-5B658DD10382} = {7B0E8C03-15BB-433F-A8C8-0858BDFE99EB}
+		{27593FCD-53B8-4835-AE37-0B31E419454B} = {7B0E8C03-15BB-433F-A8C8-0858BDFE99EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E947E270-CCF8-49DB-9474-ECA15E1F2E97}
+	EndGlobalSection
+EndGlobal

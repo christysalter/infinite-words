@@ -1,0 +1,65 @@
+name: deploy-infrastructure
+
+on:
+  workflow_call:
+    inputs:
+      resourceGroupName:
+        required: true
+        type: string
+      functionAppName:
+        required: true
+        type: string
+      customDomain:
+        required: true
+        type: string
+    secrets:
+      azure-credentials:
+        required: true
+
+jobs:
+  deploy-functionapp:
+    runs-on: ubuntu-latest
+      
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: restore dependencies
+      run: dotnet restore
+      
+    - name: build
+      run: dotnet build --configuration Release --output ./output --no-restore
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.azure-credentials }}
+
+    - name: deploy code to azure function
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: '${{inputs.functionAppName}}'
+        slot-name: staging
+        package: './output'
+        
+    - name: check staging health
+      shell: pwsh
+      run: |
+        ./scripts/CheckHealth.ps1 'https://${{inputs.functionAppName}}-staging.azurewebsites.net/api/health'  
+
+    - name: swap slots
+      run: |
+        az webapp deployment slot auto-swap --name ${{inputs.functionAppName}} --resource-group ${{inputs.resourceGroupName}} --slot staging
+
+    - name: check production health
+      shell: pwsh
+      run: |
+        ./scripts/CheckHealth.ps1 'https://${{inputs.functionAppName}}.azurewebsites.net/api/health'  
+
+    - name: check production health with custom url
+      shell: pwsh
+      run: |
+        ./scripts/CheckHealth.ps1 'https://${{inputs.customDomain}}/api/health'  

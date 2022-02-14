@@ -1,0 +1,31 @@
+name: test-and-deploy
+
+env:
+  resourceGroupName: 'rg-infinite-words'
+  functionAppName: 'infinitewords'
+  customDomain: 'api.infinitewords.uk'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+concurrency: 
+    group: infinite-words
+    cancel-in-progress: true
+
+jobs:
+  test-code:
+    uses: ./.github/workflows/test-code.yml
+    
+  deploy-functionapp:
+    needs: [test-code]
+    uses: ./.github/workflows/deploy-function-app.yml
+    with:
+      resourceGroupName: 'rg-infinite-words'
+      functionAppName: 'infinitewords'
+      customDomain: 'api.infinitewords.uk'
+    secrets:
+      azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}

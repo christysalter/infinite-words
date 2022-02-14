@@ -1,0 +1,25 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": false
+      }
+    },
+    "logLevel": {
+      "default": "Information",
+      "Host.Results": "Information",
+      "Function": "Information",
+      "Host.Aggregator": "Information"
+    }
+  },
+  "openApi": {
+    "version": "1.0.0",
+    "title": "Word Game",
+    "description": "API Back end for a word game inspired by Wordle",
+    "license": {
+      "name": "unlicense",
+      "url": "https://opensource.org/licenses/unlicense"
+    }
+  }
+}
