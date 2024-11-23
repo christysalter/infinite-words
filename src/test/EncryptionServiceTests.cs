@@ -15,6 +15,6 @@ public class EncryptionServiceTests
         var encrypted = _encryptionService.EncryptString("password1", str);
         var decrypted = _encryptionService.DecryptString("password1", encrypted);
         
-        Assert.AreEqual(str, decrypted);
+        Assert.That(decrypted, Is.EqualTo(str));
     }
 }

@@ -14,29 +14,26 @@ public class ContinuationTokenServiceTests
     {
         var token = _tokenService.GetToken("hello".Length);
         
-        Assert.AreEqual(5, token.WordLength);
-        Assert.AreEqual(1, token.GameNumber);
+        Assert.That(token.WordLength, Is.EqualTo(5));
+        Assert.That(token.GameNumber, Is.EqualTo(1));
 
 
         var encoded = _tokenService.EncodeToken(token);
         var decoded = _tokenService.GetToken("hello".Length, encoded);
         
-        Assert.AreEqual(token.Guesses, decoded.Guesses);
-        Assert.AreEqual(token.Nonce, decoded.Nonce);
-        Assert.AreEqual(token.Token, decoded.Token);
-        Assert.AreEqual(token.GameNumber, decoded.GameNumber);
-        Assert.AreEqual(token.WordLength, decoded.WordLength);
+        Assert.That(decoded.Guesses, Is.EqualTo(token.Guesses));
+        Assert.That(decoded.Nonce, Is.EqualTo(token.Nonce));
+        Assert.That(decoded.Token, Is.EqualTo(token.Token));
+        Assert.That(decoded.GameNumber, Is.EqualTo(token.GameNumber));
+        Assert.That(decoded.WordLength, Is.EqualTo(token.WordLength));
 
         Assert.Throws<TokenCouldNotBeDecodedException>(() => _tokenService.GetToken("hello".Length, encoded + "FAIL"));
 
         var newToken = _tokenService.UpdateToken(token, "world", false);
         
-        Assert.AreEqual(1, newToken.Guesses.Count);
-        Assert.AreEqual(1, newToken.GameNumber);
-        Assert.AreEqual(token.Token, newToken.Token);
-        Assert.AreNotEqual(token.Nonce, newToken.Nonce);
-        
-        
-        
+        Assert.That(newToken.Guesses.Count, Is.EqualTo(1));
+        Assert.That(newToken.GameNumber, Is.EqualTo(1));
+        Assert.That(newToken.Token, Is.EqualTo(token.Token));
+        Assert.That(newToken.Nonce, Is.Not.EqualTo(token.Nonce));
     }
 }

@@ -15,7 +15,7 @@ public class ColourServiceTests
     {
         var result = _testService.GetColour(word, guess, i);
         
-        Assert.AreEqual(expectedResult, result);
+        Assert.That(result, Is.EqualTo(expectedResult));
     }
 
     [TestCase("hello", "world")]
@@ -27,20 +27,20 @@ public class ColourServiceTests
         guess = guess.ToLower();
         
         var result = _testService.GetColourResult(word, guess);
-        Assert.AreEqual(guess.Length, result.Count);
-        Assert.AreEqual(word.Length, result.Count);
+        Assert.That(result.Count, Is.EqualTo(guess.Length));
+        Assert.That(result.Count, Is.EqualTo(word.Length));
         foreach (var (letter, letterColour, index) in result)
         {
-            Assert.AreEqual(letter, guess[index]);
+            Assert.That(guess[index], Is.EqualTo(letter));
             
             if (word[index] == guess[index])
-                Assert.AreEqual(LetterColour.Green, letterColour);
+                Assert.That(letterColour, Is.EqualTo(LetterColour.Green));
             
             else if (word.Contains(letter))
-                Assert.AreEqual(LetterColour.Yellow, letterColour);
+                Assert.That(letterColour, Is.EqualTo(LetterColour.Yellow));
             
             else
-                Assert.AreEqual(LetterColour.Grey, letterColour);
+                Assert.That(letterColour, Is.EqualTo(LetterColour.Grey));
         }
     }
 }
