@@ -25,7 +25,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
 
     - name: restore dependencies
       run: dotnet restore
@@ -62,4 +62,4 @@ jobs:
     - name: check production health with custom url
       shell: pwsh
       run: |
-        ./scripts/CheckHealth.ps1 'https://${{inputs.customDomain}}/api/health'  
+        ./scripts/CheckHealth.ps1 'https://${{inputs.customDomain}}/api/health'

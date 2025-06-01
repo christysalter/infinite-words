@@ -21,5 +21,13 @@
       "name": "unlicense",
       "url": "https://opensource.org/licenses/unlicense"
     }
+      },
+      "extensions": {
+    "http": {
+      "routePrefix": "api",
+      "maxOutstandingRequests": 200,
+      "maxConcurrentRequests": 100,
+      "dynamicThrottlesEnabled": true
+    }
   }
 }
